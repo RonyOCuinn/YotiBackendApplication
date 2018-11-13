@@ -1,6 +1,8 @@
 package com.ronan.yotibackendtest.service;
 
 import com.ronan.yotibackendtest.model.Input;
+import com.ronan.yotibackendtest.model.RoboHoover;
+import com.ronan.yotibackendtest.model.Room;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -9,7 +11,7 @@ import java.util.Arrays;
 @Service
 public class CleanerService {
 
-    private String test;
+    RoboHoover roboHoover;
 
     public void startCleaning(Input input){
         System.out.println("Room size: " + Arrays.toString(input.getRoomSize()));
@@ -19,6 +21,12 @@ public class CleanerService {
     }
 
     public void setup(Input input) {
-        test = input.getInstructions();
+        Room room = new Room(input.getRoomSize()[0], input.getRoomSize()[1], input.getPatches());
+        roboHoover = new RoboHoover(input.getCoords()[0], input.getCoords()[1], input.getInstructions(), room);
+    }
+
+    public void start(Input input) {
+        setup(input);
+        roboHoover.move();
     }
 }

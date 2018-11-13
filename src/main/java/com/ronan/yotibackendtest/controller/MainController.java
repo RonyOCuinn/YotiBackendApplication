@@ -21,8 +21,7 @@ public class MainController {
     @PostMapping(value = "/clean")
     public String clean(@RequestBody Input input){
 
-        cleanerService.setup(input);
-        cleanerService.startCleaning(input);
+        cleanerService.start(input);
         //etc.
 
         return "";
