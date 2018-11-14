@@ -26,4 +26,13 @@ public class Room {
     public int getHeight() {
         return roomY;
     }
+
+    public boolean cleanDirt(int arrayIndexX, int arrayIndexY) {
+        if (dirtMap[arrayIndexX][arrayIndexY]){
+            dirtMap[arrayIndexX][arrayIndexY] = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -25,8 +25,9 @@ public class CleanerService {
         roboHoover = new RoboHoover(input.getCoords()[0], input.getCoords()[1], input.getInstructions(), room);
     }
 
-    public void start(Input input) {
+    public String start(Input input) {
         setup(input);
         roboHoover.move();
+        return roboHoover.report();
     }
 }

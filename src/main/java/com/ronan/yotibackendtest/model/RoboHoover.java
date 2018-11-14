@@ -1,17 +1,21 @@
 package com.ronan.yotibackendtest.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class RoboHoover {
 
     private Room room;
-    private int posX;
-    private int posY;
+    private int cartesianPosX;
+    private int cartesianPosY;
     private String instructions;
+    private int cleanCount;
 
 
-    public RoboHoover(int posX, int posY, String instructions, Room room) {
+    public RoboHoover(int cartesianPosX, int cartesianPosY, String instructions, Room room) {
         this.room = room;
-        this.posX = posX;
-        this.posY = posY;
+        this.cartesianPosX = cartesianPosX;
+        this.cartesianPosY = cartesianPosY;
         this.instructions = instructions;
     }
 
@@ -34,35 +38,52 @@ public class RoboHoover {
                     System.out.println("Invalid instruction.");
                     break;
             }
-
+            clean();
         }
     }
 
     private void clean() {
-        //TODO: Implement mapping to from Cartesian to regular java
+        //Convert Cartesian to Java
+        int arrayIndexX = cartesianPosX;
+        int arrayIndexY = (room.getHeight() - 1) - cartesianPosY;
+        if(room.cleanDirt(arrayIndexX, arrayIndexY)){
+            cleanCount++;
+        }
     }
 
     private void goWest() {
-        if (posX != 0) {
-            posX -= 1;
+        if (cartesianPosX != 0) {
+            cartesianPosX -= 1;
         }
     }
 
     private void goEast() {
-        if (posX != room.getWidth()) {
-            posX += 1;
+        if (cartesianPosX != room.getWidth()) {
+            cartesianPosX += 1;
         }
     }
 
     private void goSouth() {
-        if (posY != 0) {
-            posY -= 1;
+        if (cartesianPosY != 0) {
+            cartesianPosY -= 1;
         }
     }
 
     private void goNorth() {
-        if (posY != room.getHeight()) {
-            posY += 1;
+        if (cartesianPosY != room.getHeight()) {
+            cartesianPosY += 1;
         }
+    }
+
+    public String report() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Output output = new Output(cartesianPosX, cartesianPosY, cleanCount);
+        System.out.println(output.toString());
+        try {
+            return objectMapper.writeValueAsString(output);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

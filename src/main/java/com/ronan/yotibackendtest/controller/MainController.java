@@ -18,13 +18,13 @@ public class MainController {
         return "Hello!";
     }
 
+    @ResponseBody
     @PostMapping(value = "/clean")
     public String clean(@RequestBody Input input){
 
-        cleanerService.start(input);
-        //etc.
+        String output = cleanerService.start(input);
 
-        return "";
+        return output;
     }
 
 }
