@@ -1,6 +1,7 @@
 package com.ronan.yotibackendtest.controller;
 
 import com.ronan.yotibackendtest.model.Input;
+import com.ronan.yotibackendtest.repository.InputRepository;
 import com.ronan.yotibackendtest.service.CleanerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,9 @@ public class MainController {
     @Autowired
     CleanerService cleanerService;
 
+    @Autowired
+    InputRepository inputRepository;
+
     @ResponseBody
     @GetMapping(value = "/hello")
     public String hello(){
@@ -22,6 +26,7 @@ public class MainController {
     @PostMapping(value = "/clean")
     public String clean(@RequestBody Input input){
 
+        inputRepository.save(input);
         String output = cleanerService.start(input);
 
         return output;
