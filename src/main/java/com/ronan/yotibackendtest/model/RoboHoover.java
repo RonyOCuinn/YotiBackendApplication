@@ -1,8 +1,5 @@
 package com.ronan.yotibackendtest.model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class RoboHoover {
 
     private Room room;
@@ -75,15 +72,9 @@ public class RoboHoover {
         }
     }
 
-    public String report() {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public Output report() {
         Output output = new Output(cartesianPosX, cartesianPosY, cleanCount);
         System.out.println(output.toString());
-        try {
-            return objectMapper.writeValueAsString(output);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return output;
     }
 }

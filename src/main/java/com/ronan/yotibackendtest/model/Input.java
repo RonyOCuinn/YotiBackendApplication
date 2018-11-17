@@ -16,6 +16,22 @@ public class Input {
     private int[][] patches;
     private String instructions;
 
+    public void setRoomSize(int[] roomSize) {
+        this.roomSize = roomSize;
+    }
+
+    public void setCoords(int[] coords) {
+        this.coords = coords;
+    }
+
+    public void setPatches(int[][] patches) {
+        this.patches = patches;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
     public int[] getRoomSize() {
         return roomSize;
     }
