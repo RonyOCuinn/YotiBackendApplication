@@ -4,6 +4,7 @@ import com.ronan.yotibackendtest.model.Input;
 import com.ronan.yotibackendtest.model.Output;
 import com.ronan.yotibackendtest.model.RoboHoover;
 import com.ronan.yotibackendtest.model.Room;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,6 +14,9 @@ import java.util.Arrays;
 public class CleanerService {
 
     private RoboHoover roboHoover;
+
+    @Autowired
+    private PersistService persistService;
 
     public void startCleaning(Input input){
         System.out.println("Room size: " + Arrays.toString(input.getRoomSize()));
@@ -27,8 +31,14 @@ public class CleanerService {
     }
 
     public Output start(Input input) {
+        if(input == null){
+            throw new NullPointerException("Invalid input");
+        }
+        persistService.persist(input);
         setup(input);
         roboHoover.move();
-        return roboHoover.report();
+        Output output = roboHoover.report();
+        persistService.persist(output);
+        return output;
     }
 }

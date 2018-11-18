@@ -90,5 +90,4 @@ public class YotibackendtestApplicationTests {
         Iterable<Output> output = outputRepository.findAll();
         Assert.assertEquals(1, output.spliterator().getExactSizeIfKnown());
     }
-
 }

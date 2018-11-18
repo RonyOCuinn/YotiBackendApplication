@@ -28,11 +28,16 @@ public class Room {
     }
 
     public boolean cleanDirt(int arrayIndexX, int arrayIndexY) {
-        if (dirtMap[arrayIndexX][arrayIndexY]){
+
+        if (validCoordinates(arrayIndexX, arrayIndexY) && dirtMap[arrayIndexX][arrayIndexY]){
             dirtMap[arrayIndexX][arrayIndexY] = false;
             return true;
         } else {
             return false;
         }
+    }
+
+    private boolean validCoordinates(int arrayIndexX, int arrayIndexY) {
+        return arrayIndexX < getWidth() && arrayIndexX >= 0 && arrayIndexY < getWidth() && arrayIndexY >= 0;
     }
 }

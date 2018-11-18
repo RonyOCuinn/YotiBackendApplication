@@ -35,7 +35,7 @@ public class MainController {
     public String clean(@RequestBody Input input){
         ObjectMapper objectMapper = new ObjectMapper();
         Output output = cleanerService.start(input);
-        persistService.persist(input, output);
+
         try {
             return objectMapper.writeValueAsString(output);
         } catch (JsonProcessingException e) {
